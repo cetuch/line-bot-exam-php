@@ -3,7 +3,12 @@
 require "vendor/autoload.php";
 require_once('vendor/linecorp/line-bot-sdk/line-bot-sdk-tiny/LINEBotTiny.php');
 
-$access_token = '9EQDL+a4qHdYrNxdDPC/eExmvMrLuaXSJuo6ieNPkFgkJlqeQr2cBJ9+OrPqi9hScSvWQ8EfByd7LFkSXVfM3Td0daGZ9wfmtHnkdU5ETGzDFm3JOiLLj8L17RCdon7qOa2fW8KmugttR5fE+lF1TgdB04t89/1O/w1cDnyilFU=';
+$access_token = '9EQDL+a4qHdYrNxdDPC/eExmvMrLuaXSJuo6ieNPkFgkJlqeQr2cBJ9+OrPqi9hScSvWQ8EfByd7LFkSXVfM3Td0daGZ9wfmtHnkdU5ETGzDFm3JOiLLj8L17RCdon7qOa2fW8KmugttR5fE+lF1TgdB04t89/1O/w1cDnyilFU='; 
+ ///เปลี่ยน Access Tokken  
+
+
+
+
 
 // Get POST body content
 $content = file_get_contents('php://input');
@@ -16,7 +21,8 @@ if (!is_null($events['events'])) {
 		// Reply only when message sent is in 'text' format
 		if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
 			// Get text sent
-			$text = $event['source']['userId'];
+            //$text = $event['source']['userId'];   //เก็บ user iก line ที่พิมพ์เข้าไว้ที่ตัวแปร text
+            $text = 'hello'   //เก็บ user iก line ที่พิมพ์เข้าไว้ที่ตัวแปร text
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 
