@@ -22,7 +22,7 @@ if (!is_null($events['events'])) {
 		if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
 			// Get text sent
             //$text = $event['source']['userId'];   //เก็บ user iก line ที่พิมพ์เข้าไว้ที่ตัวแปร text
-            $text = 'hello'   //เก็บ user iก line ที่พิมพ์เข้าไว้ที่ตัวแปร text
+            $text = 'hello';   //เก็บ user iก line ที่พิมพ์เข้าไว้ที่ตัวแปร text
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 
