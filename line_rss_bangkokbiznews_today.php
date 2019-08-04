@@ -14,7 +14,7 @@ $url = $xml->channel->item[$i]->link;
 $title = $xml->channel->item[$i]->title;
 $description = $xml->channel->item[$i]->description;
 $pubDate = $xml->channel->item[$i]->pubDate;
-$news .= $title."\n".$url."\n" .$description."\n" .$pubDate."\n\n";}
+$news .= $description."\n" .$pubDate."\n\n";}
 /////////////////////////////////////
 //token 
 $token_line = "vzVGuPv8uJUJDwEmjcfc3wXpWe2oFD6lX7Fr279uhjp";
