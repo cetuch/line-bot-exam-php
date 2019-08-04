@@ -9,12 +9,13 @@ curl_close($ch);
  
 $xml = new SimpleXmlElement($contents);
 //for($i=0; $i<count($xml->channel->item); $i++){
-	for($i=0; $i<5; $i++){
+	for($i=0; $i<10; $i++){
 $url = $xml->channel->item[$i]->link;
 $title = $xml->channel->item[$i]->title;
 $description = $xml->channel->item[$i]->description;
 $pubDate = $xml->channel->item[$i]->pubDate;
-$news .= $description."\n" .$pubDate."\n\n";}
+$news .= $title.”\n”.$url.”\n\n”;
+}
 /////////////////////////////////////
 //token 
 $token_line = "vzVGuPv8uJUJDwEmjcfc3wXpWe2oFD6lX7Fr279uhjp";
