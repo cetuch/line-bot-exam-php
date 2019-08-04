@@ -9,11 +9,12 @@ curl_close($ch);
  
 $xml = new SimpleXmlElement($contents);
 //for($i=0; $i<count($xml->channel->item); $i++){
-	for($i=0; $i<10; $i++){
+	for($i=0; $i<5; $i++){
 $url = $xml->channel->item[$i]->link;
 $title = $xml->channel->item[$i]->title;
 $description = $xml->channel->item[$i]->description;
-$news .= $title.”\n”.$url.”\n\n”;
+$news .= $title."\n".$url."\n\n";
+
 }
 /////////////////////////////////////
 //token 
