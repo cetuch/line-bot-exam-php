@@ -19,7 +19,7 @@ $news .= $title."\n".$url."\n".$pubDate."\n\n";
 }
 /////////////////////////////////////
 //token 
-$token_line = "vzVGuPv8uJUJDwEmjcfc3wXpWe2oFD6lX7Fr279uhjp";
+$token_line = "IlEhAsp3YTHdvz5LMNCiV30jLChieKokvsSppm4RrLn";
 
 $message = $_REQUEST['message'];
 $chOne = curl_init(); 
