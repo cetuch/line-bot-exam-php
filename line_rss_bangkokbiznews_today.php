@@ -1,7 +1,7 @@
 <?php
 
 /////////////////// ดึงข่าว ////////////////
-$ch = curl_init('https://www.bangkokbiznews.com/rss/feed/politics.xml');
+$ch = curl_init('http://rssfeeds.sanook.com/rss/feeds/sanook/news.world.xml');
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_HEADER, 0);
 $contents = curl_exec($ch);
