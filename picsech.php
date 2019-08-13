@@ -1,104 +1,34 @@
 <?php
-namespace frontend\controllers;
-
-use Yii;
-use yii\web\Response;
-
-class LineController extends \yii\web\Controller
-{
-    /**
-     * @inheritdoc
-     */
-    public function beforeAction($action)
-    {
-        if ($action->id == 'callback') {
-            $this->enableCsrfValidation = false; //ปิดการใช้งาน csrf
-        }
+    $accessToken = "vE1y2Cj7TrCg8b2QE5QTK5puWbvyYsRfWi5QEt7pCl2";
     
-        return parent::beforeAction($action);
-    }
+    $content = file_get_contents('php://input');
+    $arrayJson = json_decode($content, true);
+    
+    $arrayHeader = array();
+    $arrayHeader[] = "Content-Type: application/json";
+    $arrayHeader[] = "Authorization: Bearer {$accessToken}";
     
 
-    public function actionCallback()
-    {
-        
-        $json_string = file_get_contents('php://input');
-        $jsonObj = json_decode($json_string); //รับ JSON มา decode เป็น StdObj
-        $to = $jsonObj->{"result"}[0]->{"content"}->{"from"}; //หาผู้ส่ง
-        $text = $jsonObj->{"result"}[0]->{"content"}->{"text"}; //หาข้อความที่โพสมา
-        
-        $text_ex = explode(':', $text); //เอาข้อความมาแยก : ได้เป็น Array
-        
-        if($text_ex[0] == "pic"){ //ถ้าข้อความคือ "อยากรู้" ให้ทำการดึงข้อมูลจาก Wikipedia หาจากไทยก่อน
-            //https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=PHP
-            $ch1 = curl_init();
-            curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($ch1, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch1, CURLOPT_URL, 'http://vpn.idms.pw:9977/polis/imagebyte?id='.$text_ex[1]);
-            $result1 = curl_exec($ch1);
-            curl_close($ch1);
-            
-            $obj = json_decode($result1, true);
-            
-            foreach($obj['query']['pages'] as $key => $val){
-
-                $result_text = $val['extract'];
-            }
-            
-            if(empty($result_text)){//ถ้าไม่พบให้หาจาก en
-                $ch1 = curl_init();
-                curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, false);
-                curl_setopt($ch1, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($ch1, CURLOPT_URL, 'http://vpn.idms.pw:9977/polis/imagebyte?id='.$text_ex[1]);
-                $result1 = curl_exec($ch1);
-                curl_close($ch1);
-                
-                $obj = json_decode($result1, true);
-                
-                foreach($obj['query']['pages'] as $key => $val){
-                
-                    $result_text = $val['extract'];
-                }
-            }
-            if(empty($result_text)){//หาจาก en ไม่พบก็บอกว่า ไม่พบข้อมูล ตอบกลับไป
-                $result_text = 'ไม่พบข้อมูล';
-            }
-            $response_format_text = ['contentType'=>1,"toType"=>1,"text"=>$result_text];
-            
-        }else if($text_ex[0] == "อากาศ"){//ถ้าพิมพ์มาว่า อากาศ ก็ให้ไปดึง API จาก wunderground มา
-            //http://api.wunderground.com/api/yourkey/forecast/lang:TH/q/Thailand/%E0%B8%81%E0%B8%A3%E0%B8%B8%E0%B8%87%E0%B9%80%E0%B8%97%E0%B8%9E%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%99%E0%B8%84%E0%B8%A3.json
-            $ch1 = curl_init();
-            curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($ch1, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch1, CURLOPT_URL, 'http://api.wunderground.com/api/yourkey/forecast/lang:TH/q/Thailand/'.str_replace(' ', '%20', $text_ex[1]).'.json');
-            $result1 = curl_exec($ch1);
-            curl_close($ch1);
-            
-            $obj = json_decode($result1, true);
-            if(isset($obj['forecast']['txt_forecast']['forecastday'][0]['fcttext_metric'])){
-                $result_text = $obj['forecast']['txt_forecast']['forecastday'][0]['fcttext_metric'];
-            }else{//ถ้าไม่เจอกับตอบกลับว่าไม่พบข้อมูล
-                $result_text = 'ไม่พบข้อมูล';
-            }
-        }
-
-        // toChannel?eventType
-        $post_data = ["to"=>[$to],"toChannel"=>"1383378250","eventType"=>"138311608800106203","content"=>$response_format_text]; //ส่งข้อมูลไป
-        
-        $ch = curl_init("https://trialbot-api.line.me/v1/events");
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post_data));
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-            'Content-Type: application/json; charser=UTF-8',
-            'X-Line-ChannelID: 1605296497',
-            'X-Line-ChannelSecret: 9f475a9231fc788a7e83ea1352287f56',
-            'X-Line-Trusted-User-With-ACL: YOUR MID'
-        ));
-        $result = curl_exec($ch);
-        curl_close($ch);
-        
-    }
+if($message[0] == "รูป"){
+    $image_url = "http://vpn.idms.pw:9977/polis/imagebyte?id=".$message[1];
+    $arrayPostData['replyToken'] = $arrayJson['events'][0]['replyToken'];
+    $arrayPostData['messages'][0]['type'] = "image";
+    $arrayPostData['messages'][0]['originalContentUrl'] = $image_url;
+    $arrayPostData['messages'][0]['previewImageUrl'] = $image_url;
+    replyMsg($arrayHeader,$arrayPostData);
 }
+function replyMsg($arrayHeader,$arrayPostData){
+    $strUrl = "https://api.line.me/v2/bot/message/reply";
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL,$strUrl);
+    curl_setopt($ch, CURLOPT_HEADER, false);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $arrayHeader);    
+    curl_setopt($ch, CURLOPT_POSTFIELDS,json_encode($arrayPostData));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER,true);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    $result = curl_exec($ch);
+    curl_close ($ch);
+}
+exit;
 ?>
