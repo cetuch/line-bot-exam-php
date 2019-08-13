@@ -28,14 +28,14 @@ function sendMessage($replyJson, $sendInfo)
     return $result;
 }
 
-if($message[0] == "รูป"){
+if($message[0] == "pic"){
     $image_url = "http://vpn.idms.pw:9977/polis/imagebyte?id=".$message[1];
     $arrayPostData['replyToken'] = $arrayJson['events'][0]['replyToken'];
     $arrayPostData['messages'][0]['type'] = "image";
     $arrayPostData['messages'][0]['originalContentUrl'] = $image_url;
     $arrayPostData['messages'][0]['previewImageUrl'] = $image_url;
     replyMsg($arrayHeader,$arrayPostData);
-
+}
 $lineData['URL'] = "https://api.line.me/v2/bot/message/reply";
 $lineData['AccessToken'] = "9EQDL+a4qHdYrNxdDPC/eExmvMrLuaXSJuo6ieNPkFgkJlqeQr2cBJ9+OrPqi9hScSvWQ8EfByd7LFkSXVfM3Td0daGZ9wfmtHnkdU5ETGzDFm3JOiLLj8L17RCdon7qOa2fW8KmugttR5fE+lF1TgdB04t89/1O/w1cDnyilFU=";
 $replyJson["replyToken"] = $replyToken;
