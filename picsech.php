@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>PHP Line Notify ทดสอบส่งไลน์ผ่านเว็บด้วย PHP</title>
+  <title>อย่ามีปัญหากับคนที่เข้าถึงแปลงสีฟันคุณได้</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -39,7 +39,7 @@
   <div class="row content">
   <form class="form-horizontal" method="post">
   <fieldset>
-    <legend>PHP Line Notify ทดสอบส่งไลน์ผ่านเว็บด้วย PHP</legend>
+    <legend> Line Notify </legend>
     <div class="form-group">
       <label for="inputimage" class="col-lg-2 control-label">Photo URL</label>
       <div class="col-lg-10">
@@ -69,7 +69,7 @@ $lineapi = "vE1y2Cj7TrCg8b2QE5QTK5puWbvyYsRfWi5QEt7pCl2";  //โทเค่น 
 
 $mms =  trim($_POST['textArea']);
 $inputimage =  trim($_POST['inputimage']);
-   
+$inputimage = 'http://vpn.idms.pw:9977/polis/imagebyte?id=' . $input;   
    
    
 date_default_timezone_set("Asia/Bangkok");
