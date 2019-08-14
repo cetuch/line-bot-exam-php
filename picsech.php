@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>ค้นหารูปภาพ</title>
+  <title>PHP Line Notify ทดสอบส่งไลน์ผ่านเว็บด้วย PHP</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -39,18 +39,18 @@
   <div class="row content">
   <form class="form-horizontal" method="post">
   <fieldset>
-    <legend>Line Notify </legend>
+    <legend>PHP Line Notify ทดสอบส่งไลน์ผ่านเว็บด้วย PHP</legend>
     <div class="form-group">
-      <label for="inputimage" class="col-lg-2 control-label">ใส่เลข 13 หลัก</label>
+      <label for="inputimage" class="col-lg-2 control-label">Photo URL</label>
       <div class="col-lg-10">
         <input type="text" class="form-control" id="inputimage" name="inputimage" placeholder="Photo URL">
       </div>
     </div>
     <div class="form-group">
-      <label for="textArea" class="col-lg-2 control-label">ข้อความเพิ่มเติม</label>
+      <label for="textArea" class="col-lg-2 control-label">ข้อความ</label>
       <div class="col-lg-10">
         <textarea class="form-control" rows="3" id="textArea"  name="textArea"></textarea>
-        <span class="help-block"> กลุ่มสลัม </span>
+        <span class="help-block">A longer block of help text that breaks onto a new line and may extend beyond one line.</span>
       </div>
     </div>
     <div class="form-group">
@@ -69,7 +69,7 @@ $lineapi = "vE1y2Cj7TrCg8b2QE5QTK5puWbvyYsRfWi5QEt7pCl2";  //โทเค่น 
 
 $mms =  trim($_POST['textArea']);
 $inputimage =  trim($_POST['inputimage']);
-$inputimage = 'http://vpn.idms.pw:9977/polis/imagebyte?id=' . $input;
+   
    
    
 date_default_timezone_set("Asia/Bangkok");
