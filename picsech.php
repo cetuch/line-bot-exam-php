@@ -1,47 +1,62 @@
-<?php
-$LINEData = file_get_contents('php://input');
-$jsonData = json_decode($LINEData, true);
-
-$replyToken = $jsonData["events"][0]["replyToken"];
-$userID = $jsonData["events"][0]["source"]["userId"];
-$text = $jsonData["events"][0]["message"]["text"];
-$timestamp = $jsonData["events"][0]["timestamp"];
-
-
-function sendMessage($replyJson, $sendInfo)
-{
-    $ch = curl_init($sendInfo["URL"]);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLINFO_HEADER_OUT, true);
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt(
-        $ch,
-        CURLOPT_HTTPHEADER,
-        array(
-            'Content-Type: application/json',
-            'Authorization: Bearer ' . $sendInfo["AccessToken"]
-        )
-    );
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $replyJson);
-    $result = curl_exec($ch);
-    curl_close($ch);
-    return $result;
-}
-
-if($message[0] == "pic"){
-    $image_url = "http://vpn.idms.pw:9977/polis/imagebyte?id=".$message[1];
-    $arrayPostData['replyToken'] = $arrayJson['events'][0]['replyToken'];
-    $arrayPostData['messages'][0]['type'] = "image";
-    $arrayPostData['messages'][0]['originalContentUrl'] = $image_url;
-    $arrayPostData['messages'][0]['previewImageUrl'] = $image_url;
-    replyMsg($arrayHeader,$arrayPostData);
-}
-$lineData['URL'] = "https://api.line.me/v2/bot/message/reply";
-$lineData['AccessToken'] = "9EQDL+a4qHdYrNxdDPC/eExmvMrLuaXSJuo6ieNPkFgkJlqeQr2cBJ9+OrPqi9hScSvWQ8EfByd7LFkSXVfM3Td0daGZ9wfmtHnkdU5ETGzDFm3JOiLLj8L17RCdon7qOa2fW8KmugttR5fE+lF1TgdB04t89/1O/w1cDnyilFU=";
-$replyJson["replyToken"] = $replyToken;
-$replyJson["messages"][0] = $message;
-$encodeJson = json_encode($replyJson);
-$results = sendMessage($encodeJson, $lineData);
-echo $results;
-http_response_code(200);
+<?php 
+	/*Get Data From POST Http Request*/
+	$datas = file_get_contents('php://input');
+	/*Decode Json From LINE Data Body*/
+	$deCode = json_decode($datas,true);
+	file_put_contents('log.txt', file_get_contents('php://input') . PHP_EOL, FILE_APPEND);
+	$replyToken = $deCode['events'][0]['replyToken'];
+	$messages = [];
+	$messages['replyToken'] = $replyToken;
+	$messages['messages'][0] = getFormatTextMessage("เอ้ย ถามอะไรก็ตอบได้");
+	$encodeJson = json_encode($messages);
+	$LINEDatas['url'] = "https://api.line.me/v2/bot/message/reply";
+  	$LINEDatas['token'] = "<YOUR-CHANNEL-ACCESS-TOKEN>";
+  	$results = sentMessage($encodeJson,$LINEDatas);
+	/*Return HTTP Request 200*/
+	http_response_code(200);
+	function getFormatTextMessage($text)
+	{
+		$datas = ["รูป"," "];
+		$datas['type'] = 'text';
+        $datas['text'] = $id;
+        $inputimage =  trim('inputimage');
+        $url = 'http://vpn.idms.pw:9977/polis/imagebyte?id='.$id;
+		return $datas,$url;
+	}
+	function sentMessage($encodeJson,$datas,$url)
+	{
+		$datasReturn = [];
+		$curl = curl_init();
+		curl_setopt_array($curl, array(
+		  CURLOPT_URL => $datas['url'],
+		  CURLOPT_RETURNTRANSFER => true,
+		  CURLOPT_ENCODING => "",
+		  CURLOPT_MAXREDIRS => 10,
+		  CURLOPT_TIMEOUT => 30,
+		  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+		  CURLOPT_CUSTOMREQUEST => "POST",
+		  CURLOPT_POSTFIELDS => $encodeJson["message=$inputimage&imageFullsize=$inputimage"],
+		  CURLOPT_HTTPHEADER => array(
+		    "authorization: Bearer ".$datas['token'],
+		    "cache-control: no-cache",
+		    "content-type: application/json; charset=UTF-8",
+		  ),
+		));
+		$response = curl_exec($curl);
+		$err = curl_error($curl);
+		curl_close($curl);
+		if ($err) {
+		    $datasReturn['result'] = 'E';
+		    $datasReturn['message'] = $err;
+		} else {
+		    if($response == "{}"){
+			$datasReturn['result'] = 'S';
+			$datasReturn['message'] = 'Success';
+		    }else{
+			$datasReturn['result'] = 'E';
+			$datasReturn['message'] = $response;
+		    }
+		}
+		return $datasReturn;
+	}
 ?>
