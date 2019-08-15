@@ -41,16 +41,16 @@
   <fieldset>
     <legend> Line Notify </legend>
     <div class="form-group">
-      <label for="inputimage" class="col-lg-2 control-label">Photo URL</label>
+      <label for="inputimage" class="col-lg-2 control-label">ค้นหารูปจากเลข 13 หลัก</label>
       <div class="col-lg-10">
-        <input type="text" class="form-control" id="inputimage" name="inputimage" placeholder="Photo URL">
+        <input type="text" class="form-control" id="inputimage" name="inputimage" placeholder="13 หลัก">
       </div>
     </div>
     <div class="form-group">
-      <label for="textArea" class="col-lg-2 control-label">ข้อความ</label>
+      <label for="textArea" class="col-lg-2 control-label">ข้อความเตื่อนความจำ</label>
       <div class="col-lg-10">
         <textarea class="form-control" rows="3" id="textArea"  name="textArea"></textarea>
-        <span class="help-block">A longer block of help text that breaks onto a new line and may extend beyond one line.</span>
+        <span class="help-block"> </span>
       </div>
     </div>
     <div class="form-group">
