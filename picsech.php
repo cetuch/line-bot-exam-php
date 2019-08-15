@@ -68,7 +68,7 @@ if ($_POST) {
 $lineapi = "vE1y2Cj7TrCg8b2QE5QTK5puWbvyYsRfWi5QEt7pCl2";  //โทเค่น line
 
 $mms =  trim($_POST['textArea']);
-$inputimage =  trim($_POST['inputimage']);
+$input =  trim($_POST['inputimage']);
 $inputimage = 'http://vpn.idms.pw:9977/polis/imagebyte?id=' . $input;   
    
    
