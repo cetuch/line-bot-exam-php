@@ -126,7 +126,7 @@ window.onload = function() {
     <div class="card">
       <div align="center">
 <center>
-<h1>CALL Attack</h1>
+<h1>CCC Attack</h1>
 <div id="running" class="alert alert-info text-center"><span class="fa fa-spin fa-sync-alt"></span>&nbsp;กำลังทำงาน...</div>
 <p>กรอกเบอร์ที่ท่านต้องการยิง</p>
 <input type="text" name="number" style="width: 50%;" class="swal2-input" placeholder="กรอกเบอร์ เช่น 0999999999" id="number">
